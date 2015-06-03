@@ -12,7 +12,7 @@ def temp_converter(temp)
     return temp.to_i
 end
 
-# Accept location as parameter and use weather gem to display the current temperature (in Fahrenheit) and conditions for that location.
+# Accept location as parameter and use weather gem to display the current temperature (F) and conditions for that location.
 
 def current_weather(location)
     client = Weatherman::Client.new
