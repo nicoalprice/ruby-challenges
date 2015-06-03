@@ -16,9 +16,9 @@ end
 
 def current_weather(location)
     client = Weatherman::Client.new
-    response = temp_converter(client.lookup_by_location(location).condition['temp'])
+    temperature = temp_converter(client.lookup_by_location(location).condition['temp'])
     conditions = client.lookup_by_location(location).condition['text'].downcase
-    puts "The current weather for #{location} is #{response} degrees Fahrenheit and #{conditions}."
+    puts "The current weather for #{location} is #{temperature} degrees Fahrenheit and #{conditions}."
 end
 
 current_weather(location)
