@@ -1,3 +1,4 @@
+
 require 'yahoo_weatherman'
 
 # User inputs zipcode.
@@ -30,23 +31,35 @@ def current_weather(zipcode)
     puts "The current weather for #{zipcode} is #{temperature} degrees Fahrenheit and #{conditions}."
 end
 
-current_weather(zipcode)
-
-
-# Spit out a cutesie message about the weather
-
 # Find and display 5 day forecast
 
 def weather_forecast(zipcode)
     client = Weatherman::Client.new
     client.lookup_by_location(zipcode)
     
+    today = Time.now.strftime('%w').to_i
+    
     client.lookup_by_location(zipcode).forecasts.each do |forecast|
-        puts forecast['day'].to_s + ' is going to be ' + forecast['text'].downcase + ' with a low of ' + forecast['low'].to_s + ' and a high of ' + forecast['high'].to_s
-    end
-end
+        
+        day = forecast['date']
  
-today = Time.now.strftime('%w').to_i
+        weekday = day.strftime('%w').to_i
+ 
+            if weekday == today
+                dayName = 'Today'
+            elsif weekday == today + 1
+                dayName = 'Tomorrow'
+            else
+                dayName = day.strftime('%A')
+            end
+ 
+        puts dayName + ' is going to be ' + forecast['text'].downcase + ' with a low of ' + temp_converter(forecast['low']).to_s + ' and a high of ' + temp_converter(forecast['high']).to_s + "."
+    end
 
+end
+
+puts "FORECAST FOR #{zipcode}:\n" 
 weather_forecast(zipcode)
+
+
 
